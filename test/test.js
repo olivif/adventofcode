@@ -2,6 +2,15 @@ var should = require("should");
 var main = require("./../lib/adventofcode");
 var fs = require('fs');
 
+function runTestSuite(testCases, processCallback) {
+	for (var index = 0; index < testCases.length; index++) {
+		var testCase = testCases[index];
+		
+		var output = processCallback(testCase.input)
+		output.should.equal(testCase.output);
+	}
+}
+
 describe("day1", function() {
 
   it("should be able to count floors", function(done) {
@@ -18,13 +27,8 @@ describe("day1", function() {
 		{ input: ")())())", output: -3 }
 	];
 	
-	for (var index = 0; index < testCases.length; index++) {
-		var testCase = testCases[index];
-		
-		var output = main.getFloors(testCase.input);
-		output.should.equal(testCase.output);
-	}
-
+	runTestSuite(testCases, main.getFloors);
+	
     done();
   });
 
@@ -117,7 +121,7 @@ describe("day3", function() {
 
 describe("day4", function() {
 
-	it("should be able to get salt 1", function(done) {
+	xit("should be able to get salt 1", function(done) {
 	
 		var output = main.getHashSalt("abcdef");
 		output.should.equal(609043);
@@ -125,7 +129,7 @@ describe("day4", function() {
 		done();
 	});
 	
-	it("should be able to get salt 2", function(done) {
+	xit("should be able to get salt 2", function(done) {
 	
 		var output = main.getHashSalt("pqrstuv");
 		output.should.equal(1048970);
@@ -133,7 +137,7 @@ describe("day4", function() {
 		done();
 	});
 	
-	it("should be able to get salt answer", function(done) {
+	xit("should be able to get salt answer", function(done) {
 	
 		var output = main.getHashSalt("yzbqklnj");
 		output.should.equal(282749);
@@ -141,4 +145,41 @@ describe("day4", function() {
 		done();
 	});
 });
+
+describe("day5", function() {
+
+	it("should be able to get nice string", function(done) {
+	
+		var testCases = [
+			{ input: "ugknbfddgicrmopn", output: true },
+			{ input: "aaa", output: true },
+			{ input: "jchzalrnumimnmhp", output: false },
+			{ input: "haegwjzuvuyypxyu", output: false },
+			{ input: "dvszwmarrgswjxmb", output: false }
+		];
+	
+		runTestSuite(testCases, main.isNiceString);
+		
+		done();
+	});
+	
+	it("should be able to get nice string answer", function(done) {
+	
+		var array = fs.readFileSync('data/day5in.txt').toString().split("\n");
+		var total = 0;
+
+		for(var i in array) {
+			var input = array[i];
+			var output = main.isNiceString(input);
+			
+			if (output ) {
+				total++;
+			}
+		}
+		
+		total.should.equal(236);
+		done();
+	});
+});
+	
 		
