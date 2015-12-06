@@ -70,7 +70,7 @@ describe("day1", function() {
 
 describe("day2", function() {
 
-	it("should be able to calculate wrapping paper 1", function(done) {
+	it("should be able to calculate wrapping paper A1", function(done) {
 	
 		var output = main.getWrappingPaper(2, 3, 4);
 		output.should.equal(58);
@@ -78,7 +78,7 @@ describe("day2", function() {
 		done();
 	});
 	
-	it("should be able to calculate wrapping paper 2", function(done) {
+	it("should be able to calculate wrapping paper A2", function(done) {
 	
 		var output = main.getWrappingPaper(1, 1, 10);
 		output.should.equal(43);
@@ -86,7 +86,23 @@ describe("day2", function() {
 		done();
 	});
   
-  	it("should be able to calculate wrapping paper answer", function(done) {
+  	it("should be able to calculate wrapping paper B1", function(done) {
+	
+		var output = main.getRibbon(2, 3, 4);
+		output.should.equal(34);
+		
+		done();
+	});
+	
+	it("should be able to calculate wrapping paper B2", function(done) {
+	
+		var output = main.getRibbon(1, 1, 10);
+		output.should.equal(14);
+		
+		done();
+	});
+	
+  	it("should be able to calculate wrapping paper answer A", function(done) {
 	
 		var array = fs.readFileSync('data/day2in.txt').toString().split("\n");
 		var total = 0;
@@ -99,6 +115,22 @@ describe("day2", function() {
 		}
 		
 		total.should.equal(1588178);
+		done();
+	});
+	
+	it("should be able to calculate wrapping paper answer B", function(done) {
+	
+		var array = fs.readFileSync('data/day2in.txt').toString().split("\n");
+		var total = 0;
+
+		for(var i in array) {
+			var input = array[i].split("x");
+			var output = main.getRibbon(input[0], input[1], input[2]);
+			
+			total += output;
+		}
+		
+		total.should.equal(3783758);
 		done();
 	});
 	
