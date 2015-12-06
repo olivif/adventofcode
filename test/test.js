@@ -114,3 +114,31 @@ describe("day3", function() {
 	});
 	
 });
+
+describe("day4", function() {
+
+	it("should be able to get salt 1", function(done) {
+	
+		var output = main.getHashSalt("abcdef");
+		output.should.equal(609043);
+		
+		done();
+	});
+	
+	it("should be able to get salt 2", function(done) {
+	
+		var output = main.getHashSalt("pqrstuv");
+		output.should.equal(1048970);
+		
+		done();
+	});
+	
+	it("should be able to get salt answer", function(done) {
+	
+		var output = main.getHashSalt("yzbqklnj");
+		output.should.equal(282749);
+		
+		done();
+	});
+});
+		
