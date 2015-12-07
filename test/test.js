@@ -227,7 +227,7 @@ describe("day4", function() {
 
 describe("day5", function() {
 
-	it("should be able to get nice string", function(done) {
+	it("should be able to get nice string A", function(done) {
 	
 		var testCases = [
 			{ input: "ugknbfddgicrmopn", output: true },
@@ -242,7 +242,22 @@ describe("day5", function() {
 		done();
 	});
 	
-	it("should be able to get nice string answer", function(done) {
+	it("should be able to get nice string B", function(done) {
+	
+		var testCases = [
+			{ input: "qjhvhtzxzqqjkmpb", output: true },
+			{ input: "qjhvhtzxzqkmpbqj", output: true },
+			{ input: "xxyxx", output: true },
+			{ input: "uurcxstgmygtbstg", output: false },
+			{ input: "ieodomkazucvgmuy", output: false }
+		];
+	
+		runTestSuite(testCases, main.isNiceStringV2);
+		
+		done();
+	});
+	
+	it("should be able to get nice string answer A", function(done) {
 	
 		var array = fs.readFileSync('data/day5in.txt').toString().split("\n");
 		var total = 0;
@@ -257,6 +272,24 @@ describe("day5", function() {
 		}
 		
 		total.should.equal(236);
+		done();
+	});
+	
+	xit("should be able to get nice string answer B", function(done) {
+	
+		var array = fs.readFileSync('data/day5in2.txt').toString().split("\n");
+		var total = 0;
+
+		for(var i in array) {
+			var input = array[i];
+			var output = main.isNiceStringV2(input);
+			
+			if (output ) {
+				total++;
+			}
+		}
+		
+		total.should.equal(69);
 		done();
 	});
 });
