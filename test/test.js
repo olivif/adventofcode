@@ -2,12 +2,18 @@ var should = require("should");
 var main = require("./../lib/adventofcode");
 var fs = require('fs');
 
-function runTestSuite(testCases, processCallback) {
+function runTestSuite(testCases, processCallback, comparisonCallback) {
 	for (var index = 0; index < testCases.length; index++) {
 		var testCase = testCases[index];
 		
 		var output = processCallback(testCase.input)
-		output.should.equal(testCase.output);
+		
+		if (comparisonCallback === undefined) {
+			// default to equals op
+			output.should.equal(testCase.output);
+		} else {
+			comparisonCallback(output, testCase.output);
+		}
 	}
 }
 
@@ -293,4 +299,52 @@ describe("day5", function() {
 	});
 });
 	
-		
+describe("day6", function() {
+
+	it("should be able to parse instruction type", function(done) {
+	
+		var testCases = [
+			{ input: "turn on 887,9 through 959,629", output: "turn on" },
+			{ input: "turn off 301,3 through 808,453", output: "turn off" },
+			{ input: "toggle 294,259 through 474,326", output: "toggle" },
+		];
+	
+		runTestSuite(testCases, main.parseInstruction, function(actualOutput, expectedOutput) {
+			return expectedOutput.should.equal(actualOutput.type);
+		});
+				
+		done();
+	});
+	
+	it("should be able to parse instruction top XY", function(done) {
+	
+		var testCases = [
+			{ input: "turn on 887,9 through 959,629", output: {topX: 887, topY: 9} },
+			{ input: "turn off 301,3 through 808,453", output: {topX: 301, topY: 3} },
+			{ input: "toggle 294,259 through 474,326", output: {topX: 294, topY: 259} },
+		];
+	
+		runTestSuite(testCases, main.parseInstruction, function(actualOutput, expectedOutput) {
+			return expectedOutput.topX.should.equal(actualOutput.topX);
+			return expectedOutput.topY.should.equal(actualOutput.topY);
+		});
+				
+		done();
+	});
+	
+	it("should be able to parse instruction bottom XY", function(done) {
+	
+		var testCases = [
+			{ input: "turn on 887,9 through 959,629", output: {bottomX: 959, bottomY: 629} },
+			{ input: "turn off 301,3 through 808,453", output: {bottomX: 808, bottomY: 453} },
+			{ input: "toggle 294,259 through 474,326", output: {bottomX: 474, bottomY: 326} },
+		];
+	
+		runTestSuite(testCases, main.parseInstruction, function(actualOutput, expectedOutput) {
+			return expectedOutput.bottomX.should.equal(actualOutput.bottomX);
+			return expectedOutput.bottomY.should.equal(actualOutput.bottomY);
+		});
+				
+		done();
+	});
+});		
