@@ -246,7 +246,6 @@ describe("day5", function() {
 	
 		var testCases = [
 			{ input: "qjhvhtzxzqqjkmpb", output: true },
-			{ input: "qjhvhtzxzqkmpbqj", output: true },
 			{ input: "xxyxx", output: true },
 			{ input: "uurcxstgmygtbstg", output: false },
 			{ input: "ieodomkazucvgmuy", output: false }
@@ -275,21 +274,21 @@ describe("day5", function() {
 		done();
 	});
 	
-	xit("should be able to get nice string answer B", function(done) {
+	it("should be able to get nice string answer B", function(done) {
 	
-		var array = fs.readFileSync('data/day5in2.txt').toString().split("\n");
+		var array = fs.readFileSync('data/day5in.txt').toString().split("\n");
 		var total = 0;
 
 		for(var i in array) {
 			var input = array[i];
 			var output = main.isNiceStringV2(input);
 			
-			if (output ) {
+			if (output) {
 				total++;
 			}
 		}
 		
-		total.should.equal(69);
+		total.should.equal(51);
 		done();
 	});
 });
