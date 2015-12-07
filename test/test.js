@@ -179,7 +179,7 @@ describe("day3", function() {
 		var answerInput = fs.readFileSync('data/day3in.txt').toString();
 		var output = main.getTwoSantasHouseCount(answerInput);
 		
-		output.should.equal(2356);
+		output.should.equal(2360);
 		
 		done();
 	});
