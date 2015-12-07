@@ -188,29 +188,41 @@ describe("day3", function() {
 
 describe("day4", function() {
 
-	xit("should be able to get salt 1", function(done) {
+	var zeroes5 = "00000";
+	var zeroes6 = "000000";
+
+	xit("should be able to get salt A1", function(done) {
 	
-		var output = main.getHashSalt("abcdef");
+		var output = main.getHashSalt("abcdef", zeroes5);
 		output.should.equal(609043);
 		
 		done();
 	});
 	
-	xit("should be able to get salt 2", function(done) {
+	xit("should be able to get salt A2", function(done) {
 	
-		var output = main.getHashSalt("pqrstuv");
+		var output = main.getHashSalt("pqrstuv", zeroes5);
 		output.should.equal(1048970);
 		
 		done();
 	});
 	
-	xit("should be able to get salt answer", function(done) {
+	xit("should be able to get salt answer A", function(done) {
 	
-		var output = main.getHashSalt("yzbqklnj");
+		var output = main.getHashSalt("yzbqklnj", zeroes5);
 		output.should.equal(282749);
 		
 		done();
 	});
+	
+	xit("should be able to get salt answer B", function(done) {
+	
+		var output = main.getHashSalt("yzbqklnj", zeroes6);
+		output.should.equal(9962624);
+		
+		done();
+	});
+	
 });
 
 describe("day5", function() {
