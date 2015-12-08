@@ -347,4 +347,28 @@ describe("day6", function() {
 				
 		done();
 	});
+	
+	it("should be able to count lights A", function(done) {
+	
+		var testCases = [
+			{ input: ["turn on 0,0 through 999,999"], output: 1000000 },
+			{ input: ["toggle 0,0 through 999,0"], output: 1000 },
+			{ input: ["turn off 499,499 through 500,500"], output: 0 },
+		];
+	
+		runTestSuite(testCases, main.runLightsInstructions);
+				
+		done();
+	});
+	
+	it("should be able to count lights answer A", function(done) {
+	
+		var array = fs.readFileSync('data/day6in.txt').toString().split("\n");
+	
+		var output = main.runLightsInstructions(array);
+		output.should.equal(377891);
+				
+		done();
+	});
+	
 });		
