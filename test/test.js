@@ -348,7 +348,7 @@ describe("day6", function() {
 		done();
 	});
 	
-	it("should be able to count lights A", function(done) {
+	xit("should be able to count lights A", function(done) {
 	
 		var testCases = [
 			{ input: ["turn on 0,0 through 999,999"], output: 1000000 },
@@ -361,7 +361,7 @@ describe("day6", function() {
 		done();
 	});
 	
-	it("should be able to count lights answer A", function(done) {
+	xit("should be able to count lights answer A", function(done) {
 	
 		var array = fs.readFileSync('data/day6in.txt').toString().split("\n");
 	
@@ -371,7 +371,7 @@ describe("day6", function() {
 		done();
 	});
 	
-	it("should be able to count lights answer B", function(done) {
+	xit("should be able to count lights answer B", function(done) {
 	
 		var array = fs.readFileSync('data/day6in.txt').toString().split("\n");
 	
@@ -382,3 +382,64 @@ describe("day6", function() {
 	});
 	
 });		
+
+describe("day7", function() {
+
+	xit("should be able to parse assignment op", function(done) {
+	
+		var testCases = [
+			{ input: "123 -> x", output: {key: "x", value: 123 } },
+			{ input: "a AND b -> d", output: {key: "d", value: 2 } },
+			{ input: "a OR c -> d", output: {key: "d", value: 10 } },
+			{ input: "a LSHIFT c -> d", output: {key: "d", value: 40 } },
+			{ input: "a RSHIFT c -> d", output: {key: "d", value: 2 } },
+			{ input: "NOT e -> d", output: {key: "d", value: 91 } },
+		];
+	
+		var registry = {
+			"a": 10,
+			"b": 3,
+			"c": 2,
+			"e": 90
+		};
+		
+		runTestSuite(testCases, 
+			function(input) {
+				return main.parseAssignmentOperation(input, registry);
+			}, 
+			function(actualOutput, expectedOutput) {
+				return expectedOutput.key.should.equal(actualOutput.key);
+				return expectedOutput.value.should.equal(actualOutput.value);
+			}
+		);
+				
+		done();
+	});
+	
+	it("should be able to run list of ops", function(done) {
+		
+		var registry = main.runAssignmentOperations("data/day7in.txt");
+		
+		registry["d"].should.equal(72);
+		registry["e"].should.equal(507);
+		registry["f"].should.equal(492);
+		registry["g"].should.equal(114);
+		registry["h"].should.equal(65412);
+		registry["i"].should.equal(65079);
+		registry["x"].should.equal(123);
+		registry["y"].should.equal(456);
+				
+		done();
+	});
+	
+	it("should be able to run list of ops answer A", function(done) {
+		
+		var registry = main.runAssignmentOperations("data/day7in2.txt");
+		console.log(registry);
+
+		registry["a"].should.equal(0);
+				
+		done();
+	});
+	
+});
