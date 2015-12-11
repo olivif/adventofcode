@@ -356,7 +356,7 @@ describe("day6", function() {
 			{ input: ["turn off 499,499 through 500,500"], output: 0 },
 		];
 	
-		runTestSuite(testCases, main.runLightsInstructions);
+		runTestSuite(testCases, main.runLightsInstructionsA);
 				
 		done();
 	});
@@ -365,8 +365,18 @@ describe("day6", function() {
 	
 		var array = fs.readFileSync('data/day6in.txt').toString().split("\n");
 	
-		var output = main.runLightsInstructions(array);
+		var output = main.runLightsInstructionsA(array);
 		output.should.equal(377891);
+				
+		done();
+	});
+	
+	it("should be able to count lights answer B", function(done) {
+	
+		var array = fs.readFileSync('data/day6in.txt').toString().split("\n");
+	
+		var output = main.runLightsInstructionsB(array);
+		output.should.equal(14110788);
 				
 		done();
 	});
