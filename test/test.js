@@ -441,4 +441,12 @@ describe("day7", function() {
 		done();
 	});
 	
+	it("should be able to run list of ops answer B", function(done) {
+		
+		var registry = main.runAssignmentOperations("data/day7in3.txt");
+
+		registry["a"].should.equal(14710);
+				
+		done();
+	});
 });
