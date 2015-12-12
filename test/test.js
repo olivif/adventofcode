@@ -22,15 +22,15 @@ describe("day1", function() {
 	it("should be able to count floors A", function(done) {
 	
 		var testCases = [
-		{ input: "(())", output: 0 },
-		{ input: "()()", output: 0 },
-		{ input: "(((", output: 3 },
-		{ input: "(()(()(", output: 3 },
-		{ input: "))(((((", output: 3 },
-		{ input: "())", output: -1 },
-		{ input: "))(", output: -1 },
-		{ input: ")))", output: -3 },
-		{ input: ")())())", output: -3 }
+			{ input: "(())", output: 0 },
+			{ input: "()()", output: 0 },
+			{ input: "(((", output: 3 },
+			{ input: "(()(()(", output: 3 },
+			{ input: "))(((((", output: 3 },
+			{ input: "())", output: -1 },
+			{ input: "))(", output: -1 },
+			{ input: ")))", output: -3 },
+			{ input: ")())())", output: -3 }
 		];
 		
 		runTestSuite(testCases, main.getFloors);
@@ -450,3 +450,53 @@ describe("day7", function() {
 		done();
 	});
 });
+
+describe("day8", function() {
+
+	it("should be able to get string length", function(done) {
+		var testCases = [
+			{ input: "", output: 0},
+			{ input: "abc", output: 3},
+			{ input: "aaa\"aaa", output: 7},
+			{ input: "\x27", output: 1},
+		];
+		
+		runTestSuite(testCases, main.getStringTotalLength);
+		
+		done();
+	});
+	
+	xit("should be able to get string code length", function(done) {
+		var testCases = [
+			{ input: "", output: 2},
+			{ input: "abc", output: 5},
+			{ input: "aaa\"aaa", output: 10},
+			{ input: "\x27", output: 6},
+		];
+		
+		runTestSuite(testCases, main.getStringCodeLength);
+		
+		done();
+	});
+	
+	xit("should be able to get string code answer A", function(done) {
+		
+		var fileName = 'data/day8in.txt';
+		var array = fs.readFileSync(fileName, "utf8").split("\n");
+		var fileStats = fs.statSync(fileName);
+		var totalLength = 0;
+
+		for(var i in array) {
+			var input = array[i];
+			totalLength += main.getStringTotalLength(input);
+		}
+		
+		console.log(fileStats.size + " " + totalLength);
+		var total = fileStats.size - totalLength;
+		
+		total.should.equal(0);
+		done();
+	});
+	
+});
+	
