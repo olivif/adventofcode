@@ -435,9 +435,8 @@ describe("day7", function() {
 	it("should be able to run list of ops answer A", function(done) {
 		
 		var registry = main.runAssignmentOperations("data/day7in2.txt");
-		console.log(registry);
 
-		registry["a"].should.equal(0);
+		registry["a"].should.equal(3176);
 				
 		done();
 	});
