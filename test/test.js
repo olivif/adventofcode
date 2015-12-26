@@ -10,6 +10,7 @@ const day6 = require('./../lib/day6');
 const day7 = require('./../lib/day7');
 const day8 = require('./../lib/day8');
 const day9 = require('./../lib/day9');
+const day10 = require('./../lib/day10');
 
 function runTestSuite(testCases, processCallback, comparisonCallback) {
 	for (var index = 0; index < testCases.length; index++) {
@@ -587,4 +588,47 @@ describe("day9", function() {
         minCost.should.eql(736);
         done();
 	}); 
+});
+
+describe("day10", function() {
+
+	it("should be able to generate look and say string", function(done) {
+		var testCases = [
+			{ input: "1", output: "11" },
+			{ input: "11", output: "21" },
+			{ input: "21", output: "1211" },
+			{ input: "1211", output: "111221" },
+			{ input: "111221", output: "312211" },
+		];
+		
+		runTestSuite(testCases, day10.lookAndSay);
+
+		done();
+	});
+    
+    it("should be able to get answer A", function(done) {
+        
+        var iterations = 40;
+        var input = "1321131112";
+        for (var index = 0; index < iterations; index++) {
+            input = day10.lookAndSay(input);
+        }
+        
+        input.length.should.eql(492982);  
+
+		done();
+	});
+    
+    xit("should be able to get answer B", function(done) {
+        
+        var iterations = 50;
+        var input = "1321131112";
+        for (var index = 0; index < iterations; index++) {
+            input = day10.lookAndSay(input);
+        }
+        
+        input.length.should.eql(6989950);  
+
+		done();
+	});
 });
