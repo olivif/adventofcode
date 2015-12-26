@@ -9,6 +9,7 @@ const day5 = require('./../lib/day5');
 const day6 = require('./../lib/day6');
 const day7 = require('./../lib/day7');
 const day8 = require('./../lib/day8');
+const day9 = require('./../lib/day9');
 
 function runTestSuite(testCases, processCallback, comparisonCallback) {
 	for (var index = 0; index < testCases.length; index++) {
@@ -18,7 +19,7 @@ function runTestSuite(testCases, processCallback, comparisonCallback) {
 		
 		if (comparisonCallback === undefined) {
 			// default to equals op
-			output.should.equal(testCase.output);
+			output.should.eql(testCase.output);
 		} else {
 			comparisonCallback(output, testCase.output);
 		}
@@ -539,4 +540,42 @@ describe("day8", function() {
 		done();
 	});
 });
-	
+
+
+describe("day9", function() {
+
+	it("should be able to parse an edge", function(done) {
+		var testCases = [
+			{ input: 'AlphaCentauri to Snowdin = 66', output: {
+                cost: 66,
+                from: "AlphaCentauri",
+                to: "Snowdin",
+                state: ""
+            }},
+		];
+		
+		runTestSuite(testCases, day9.parseEdge);
+		
+		done();
+	});
+    
+     it("should be able to construct graph", function(done) {
+		
+		var fileName = 'data/day9in1.txt';
+		var array = fs.readFileSync(fileName, "utf8").split("\r\n");
+
+        var graph = day9.constructGraph(array);
+        console.log(graph);
+        
+		done();
+	});
+    
+    it("should be able to run ", function(done) {
+        var fileName = 'data/day9in.txt';
+        var array = fs.readFileSync(fileName, "utf8").split("\r\n");
+        var minCost = day9.getPermutations(array);
+        
+        minCost.should.eql(141);
+        done();
+	});  
+});

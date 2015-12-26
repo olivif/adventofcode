@@ -1,7 +1,6 @@
 {
   "name": "adventofcode",
   "version": "1.0.0",
-  "description": "",
   "main": "adventofcode.js",
   "directories": {
     "test": "test"
@@ -18,6 +17,16 @@
     "should": "^7.1.1"
   },
   "dependencies": {
+    "hashmap": "^2.0.4",
     "js-md5": "^0.3.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olivif/adventofcode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/olivif/adventofcode/issues"
+  },
+  "homepage": "https://github.com/olivif/adventofcode#readme",
+  "description": ""
 }
