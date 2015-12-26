@@ -11,6 +11,7 @@ const day7 = require('./../lib/day7');
 const day8 = require('./../lib/day8');
 const day9 = require('./../lib/day9');
 const day10 = require('./../lib/day10');
+const day11 = require('./../lib/day11');
 
 function runTestSuite(testCases, processCallback, comparisonCallback) {
 	for (var index = 0; index < testCases.length; index++) {
@@ -571,7 +572,7 @@ describe("day9", function() {
 		done();
 	});
     
-    it("should get answer part A", function(done) {
+    xit("should get answer part A", function(done) {
         var fileName = 'data/day9in.txt';
         var array = fs.readFileSync(fileName, "utf8").split("\r\n");
         var minCost = day9.getMin(array);
@@ -580,7 +581,7 @@ describe("day9", function() {
         done();
 	});  
     
-    it("should get answer part B", function(done) {
+    xit("should get answer part B", function(done) {
         var fileName = 'data/day9in.txt';
         var array = fs.readFileSync(fileName, "utf8").split("\r\n");
         var minCost = day9.getMax(array);
@@ -628,6 +629,82 @@ describe("day10", function() {
         }
         
         input.length.should.eql(6989950);  
+
+		done();
+	});
+});
+
+describe("day11", function() {
+
+	it("should be able to check if a password has a straight", function(done) {
+		var testCases = [
+			{ input: "abc", output: true },
+			{ input: "bcd", output: true },
+			{ input: "cde", output: true },
+			{ input: "xyz", output: true },
+			{ input: "abd", output: false }
+		];
+		
+		runTestSuite(testCases, day11.hasStraight);
+
+		done();
+	});
+    
+    it("should be able to check if a password contains forbidden letters", function(done) {
+		var testCases = [
+			{ input: "abc", output: false },
+			{ input: "bcd", output: false },
+			{ input: "code", output: true },
+			{ input: "xlyz", output: true },
+			{ input: "xiyz", output: true },
+			{ input: "abd", output: false }
+		];
+		
+		runTestSuite(testCases, day11.containsForbidden);
+
+		done();
+	});
+    
+    it("should be able to check if a password is valid", function(done) {
+		var testCases = [
+			{ input: "hijklmmn", output: false },
+			{ input: "abbceffg", output: false },
+			{ input: "abbcegjk", output: false },
+			{ input: "abcdffaa", output: true },
+			{ input: "ghjaabcc", output: true },
+		];
+		
+		runTestSuite(testCases, day11.isValid);
+
+		done();
+	});
+    
+    it("should be able to get next password", function(done) {
+		var testCases = [
+			{ input: "abcdefgh", output: "abcdffaa" },
+		];
+		
+		runTestSuite(testCases, day11.getNextPassword);
+
+		done();
+	});
+    
+    it("should be able to get next password A", function(done) {
+        
+        var input = "vzbxkghb";	
+		var output = day11.getNextPassword(input);
+        
+        output.should.eql("vzbxxyzz");
+
+		done();
+	});
+    
+    it("should be able to get next password B", function(done) {
+        
+        var input = "vzbxxyzz";	
+		var output = day11.getNextPassword(input);
+        
+        output.should.eql("vzcaabcc");
 
 		done();
 	});
