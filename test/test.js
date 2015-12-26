@@ -505,5 +505,38 @@ describe("day8", function() {
 		total.should.equal(1371);
 		done();
 	});
+    
+    it("should be able to encode a string", function(done) {
+        
+		var testCases = [
+			{ input: '""', output: 6},
+			{ input: '"abc"', output: 9},
+			{ input: '"aaa\\"aaa"', output: 16},
+			{ input: '"\\x27"', output: 11}  
+		];
+		
+		runTestSuite(testCases, day8.gesl);
+		
+		done();
+	});
+
+    it("should be able to get string code answer B", function(done) {
+		
+		var fileName = 'data/day8in.txt';
+		var array = fs.readFileSync(fileName, "utf8").split("\r\n");
+		var totalLength = 0;
+		var encodedLength = 0;
+
+		for(var i in array) {
+			var input = array[i];
+			totalLength += day8.getStringTotalLength(input);
+			encodedLength += day8.gesl(input);
+		}
+		
+		var total = encodedLength - totalLength;
+		
+		total.should.equal(2117);
+		done();
+	});
 });
 	
