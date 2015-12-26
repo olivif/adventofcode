@@ -570,12 +570,21 @@ describe("day9", function() {
 		done();
 	});
     
-    it("should be able to run ", function(done) {
+    it("should get answer part A", function(done) {
         var fileName = 'data/day9in.txt';
         var array = fs.readFileSync(fileName, "utf8").split("\r\n");
-        var minCost = day9.getPermutations(array);
+        var minCost = day9.getMin(array);
         
         minCost.should.eql(141);
         done();
 	});  
+    
+    it("should get answer part B", function(done) {
+        var fileName = 'data/day9in.txt';
+        var array = fs.readFileSync(fileName, "utf8").split("\r\n");
+        var minCost = day9.getMax(array);
+        
+        minCost.should.eql(736);
+        done();
+	}); 
 });
