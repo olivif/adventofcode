@@ -12,6 +12,7 @@ const day8 = require('./../lib/day8');
 const day9 = require('./../lib/day9');
 const day10 = require('./../lib/day10');
 const day11 = require('./../lib/day11');
+const day12 = require('./../lib/day12');
 
 function runTestSuite(testCases, processCallback, comparisonCallback) {
 	for (var index = 0; index < testCases.length; index++) {
@@ -708,4 +709,46 @@ describe("day11", function() {
 
 		done();
 	});
+});
+
+describe("day12", function() {
+
+	it("should be able to parse json", function(done) {
+		var testCases = [
+			{ input: JSON.parse("[1,2,3]"), output: 6 },
+			{ input: JSON.parse("{\"a\":2,\"b\":4}"), output: 6 },
+			{ input: JSON.parse("[[[3]]]"), output: 3 },
+			{ input: JSON.parse("{\"a\":[-1,1]}"), output: 0 },
+			{ input: JSON.parse("[-1,{\"a\":1}]"), output: 0 },
+			{ input: JSON.parse("[]"), output: 0 },
+			{ input: JSON.parse("{}"), output: 0 }
+		];
+		
+		runTestSuite(testCases, day12.processJson);
+        
+		done();
+	});
+    
+    xit("should be able to parse json A", function(done) {
+        
+        var fileName = 'data/day12in.txt';
+        var input = fs.readFileSync(fileName, "utf8");
+        
+        var output = day12.processJson(JSON.parse(input));
+        
+        output.should.eql(156366);
+		done();
+    });
+    
+    it("new test", function(done) {
+        
+        var fileName = 'data/day12in.txt';
+        var input = fs.readFileSync(fileName, "utf8");
+        var json = JSON.parse(input);
+        
+        var output = day12.processJson(json);
+        
+        output.should.eql(96852);
+		done();
+    });
 });
