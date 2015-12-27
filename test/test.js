@@ -13,6 +13,7 @@ const day9 = require('./../lib/day9');
 const day10 = require('./../lib/day10');
 const day11 = require('./../lib/day11');
 const day12 = require('./../lib/day12');
+const day13 = require('./../lib/day13');
 
 function runTestSuite(testCases, processCallback, comparisonCallback) {
 	for (var index = 0; index < testCases.length; index++) {
@@ -680,7 +681,7 @@ describe("day11", function() {
 		done();
 	});
     
-    it("should be able to get next password", function(done) {
+    xit("should be able to get next password", function(done) {
 		var testCases = [
 			{ input: "abcdefgh", output: "abcdffaa" },
 		];
@@ -690,7 +691,7 @@ describe("day11", function() {
 		done();
 	});
     
-    it("should be able to get next password A", function(done) {
+    xit("should be able to get next password A", function(done) {
         
         var input = "vzbxkghb";	
 		var output = day11.getNextPassword(input);
@@ -751,4 +752,65 @@ describe("day12", function() {
         output.should.eql(96852);
 		done();
     });
+});
+
+describe("day13", function() {
+
+	it("should be able to parse statement", function(done) {
+        var fileName = 'data/day13in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+		
+        var list = day13.parseHappinessStatements(statements);
+        
+        list.length.should.eql(12);
+        list[0].personA.should.eql("Alice");
+        list[0].personB.should.eql("Bob");
+        list[0].happiness.should.eql(54);
+		done();
+	});
+    
+    it("should be able to get unique people", function(done) {
+        var fileName = 'data/day13in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+		
+        var list = day13.parseHappinessStatements(statements);
+        var people = day13.getUniquePeople(list);
+        
+        people.length.should.eql(4);
+
+		done();
+	});
+    
+    it("should be able to get optimal seating A 1", function(done) {
+        var fileName = 'data/day13in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+		
+        var max = day13.getOptimalSeating(statements);
+        
+        max.should.eql(330);
+
+		done();
+	});
+    
+    xit("should be able to get optimal seating A", function(done) {
+        var fileName = 'data/day13in.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+		
+        var max = day13.getOptimalSeating(statements);
+        
+        max.should.eql(709);
+
+		done();
+	});
+    
+    xit("should be able to get optimal seating B", function(done) {
+        var fileName = 'data/day13in.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+		var extraPerson = "me";
+        var max = day13.getOptimalSeating(statements, extraPerson);
+        
+        max.should.eql(668);
+
+		done();
+	});
 });
