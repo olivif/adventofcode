@@ -14,6 +14,7 @@ const day10 = require('./../lib/day10');
 const day11 = require('./../lib/day11');
 const day12 = require('./../lib/day12');
 const day13 = require('./../lib/day13');
+const day14 = require('./../lib/day14');
 
 function runTestSuite(testCases, processCallback, comparisonCallback) {
 	for (var index = 0; index < testCases.length; index++) {
@@ -701,7 +702,7 @@ describe("day11", function() {
 		done();
 	});
     
-    it("should be able to get next password B", function(done) {
+    xit("should be able to get next password B", function(done) {
         
         var input = "vzbxxyzz";	
 		var output = day11.getNextPassword(input);
@@ -813,4 +814,160 @@ describe("day13", function() {
 
 		done();
 	});
+});
+
+describe("day14", function() {
+
+	it("should be able to parse reindeer", function(done) {
+        var fileName = 'data/day14in.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+		
+        var list = day14.parseReindeers(statements);
+        
+        list.length.should.eql(9);
+        
+        // Rudolph can fly 22 km/s for 8 seconds, but then must rest for 165 seconds.
+        list[0].name.should.eql("Rudolph");
+        list[0].speed.should.eql(22);
+        list[0].flyDuration.should.eql(8);
+        list[0].restDuration.should.eql(165);
+        list[0].state.should.eql(1);
+        list[0].timeInState.should.eql(165);
+        list[0].totalTravelled.should.eql(0);
+		done();
+	});
+    
+    it("should be able to run t1", function(done) {
+        var fileName = 'data/day14in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+        var reindeers = day14.parseReindeers(statements);
+        
+        var result;
+        result = day14.iterateReindeer(reindeers, 1);
+        result[0].name.should.eql("Comet");
+        result[0].totalTravelled.should.eql(14);
+        result[1].name.should.eql("Dancer");
+        result[1].totalTravelled.should.eql(16);
+		
+		done();
+    });
+    
+    it("should be able to run t2", function(done) {
+        var fileName = 'data/day14in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+        var reindeers = day14.parseReindeers(statements);
+        
+        var result;
+        result = day14.iterateReindeer(reindeers, 10);
+        result[0].totalTravelled.should.eql(140);
+        result[1].totalTravelled.should.eql(160);
+        
+		done();
+    });
+    
+    it("should be able to run t3", function(done) {
+        var fileName = 'data/day14in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+        var reindeers = day14.parseReindeers(statements);
+        
+        var result;
+        result = day14.iterateReindeer(reindeers, 11);
+        result[0].totalTravelled.should.eql(140);
+        result[0].state.should.eql(1);
+        result[1].totalTravelled.should.eql(176);
+        
+		done();
+    });
+    
+    it("should be able to run t4", function(done) {
+        var fileName = 'data/day14in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+        var reindeers = day14.parseReindeers(statements);
+        
+        var result;
+        result = day14.iterateReindeer(reindeers, 1000);
+        result[0].totalTravelled.should.eql(1120);
+        result[0].state.should.eql(1);
+        result[1].totalTravelled.should.eql(1056);
+        result[1].state.should.eql(1);
+        
+		done();
+    });
+    
+    it("should be able to run A", function(done) {
+        var fileName = 'data/day14in.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+        var reindeers = day14.parseReindeers(statements);
+        
+        var result;
+        result = day14.iterateReindeer(reindeers, 2503);
+        
+        var max = 0;
+        result.forEach(function(reindeer) {
+            if (reindeer.totalTravelled > max) {
+                max = reindeer.totalTravelled;
+            }
+        }, this);
+        
+        max.should.eql(2696);
+		done();
+    });
+    
+    it("should be able to run B t1", function(done) {
+        var fileName = 'data/day14in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+        var reindeers = day14.parseReindeers(statements);
+        
+        var result;
+        result = day14.iterateReindeer(reindeers, 1, true);
+        result[0].points.should.eql(0);
+        result[1].points.should.eql(1);
+        
+		done();
+    });
+    
+    it("should be able to run B t2", function(done) {
+        var fileName = 'data/day14in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+        var reindeers = day14.parseReindeers(statements);
+        
+        var result;
+        result = day14.iterateReindeer(reindeers, 140, true);
+        result[0].points.should.eql(1);
+        result[1].points.should.eql(139);
+        
+		done();
+    });
+    
+    it("should be able to run B t3", function(done) {
+        var fileName = 'data/day14in1.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+        var reindeers = day14.parseReindeers(statements);
+        
+        var result;
+        result = day14.iterateReindeer(reindeers, 1000, true);
+        result[0].points.should.eql(312);
+        result[1].points.should.eql(689);
+        
+		done();
+    });
+    
+    it("should be able to run B", function(done) {
+        var fileName = 'data/day14in.txt';
+        var statements = fs.readFileSync(fileName, "utf8").toString().split("\r\n");
+        var reindeers = day14.parseReindeers(statements);
+        
+        var result;
+        result = day14.iterateReindeer(reindeers, 2503, true);
+        
+        var max = 0;
+        result.forEach(function(reindeer) {
+            if (reindeer.points > max) {
+                max = reindeer.points;
+            }
+        }, this);
+        
+        max.should.eql(1084);
+		done();
+    });
 });
